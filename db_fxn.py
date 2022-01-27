@@ -3,6 +3,11 @@ import sqlite3
 conn = sqlite3.connect('word.db', check_same_thread=False)
 c = conn.cursor()
 
+def select_word():
+    c.execute('SELECT * FROM wordstable ORDER BY RANDOM() LIMIT 3')
+    data = c.fetchall()
+    return data
+
 def create_table():
     c.execute('CREATE TABLE IF NOT EXISTS wordstable(word TEXT)')
 

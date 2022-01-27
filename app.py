@@ -2,16 +2,27 @@ import streamlit as st
 import pandas as pd
 
 from db_fxn import (create_table, add_data, delete_data, view_all_data, view_unique_words, get_word, 
-    edit_word_data, delete_data) 
+    edit_word_data, delete_data, select_word) 
 
 def main():
     st.markdown('## Good Word in Business')
-    menu = ['Create', 'Read', 'Update', 'Delete', 'About']
+    menu = ['Today', 'Create', 'Read', 'Update', 'Delete', 'About']
     choice = st.sidebar.selectbox('Menu', menu)
+
+    link = '[home](http://linkprivate.s3-website-ap-northeast-1.amazonaws.com/)'
+    st.sidebar.markdown(link, unsafe_allow_html=True)
+    st.sidebar.caption('homeに戻る')
 
     create_table()
 
-    if choice == 'Create':
+    if choice == 'Today':
+        if st.button('View Word of today'):
+            result = select_word()
+            # st.write(result)
+            value = result[0][0]
+            st.write(value)
+
+    elif choice == 'Create':
         st.markdown('#### Add Item')
 
         word = st.text_area('good word')
