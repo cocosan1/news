@@ -38,6 +38,15 @@ def main():
         with st.expander('View All Data'):
             st.dataframe(df)
 
+        #ファイルダウンローダ作成
+        csv_df = df.to_csv().encode('utf-8')
+        st.download_button(
+            label='CSVダウンロード',
+            data=csv_df,
+            file_name='goodword_b.csv',
+            mime='text/csv'
+        )    
+
     elif choice == 'Update':
         st.markdown('#### Edit / Update Items')
         result = view_all_data()
