@@ -5,7 +5,7 @@ from db_fxn import (create_table, add_data, delete_data, view_all_data, view_uni
     edit_word_data, delete_data, select_word) 
 
 def main():
-    st.markdown('## Good Word in Business')
+    st.markdown('## news')
     menu = ['Today', 'Create', 'Read', 'Update', 'Delete', 'About']
     choice = st.sidebar.selectbox('Menu', menu)
 
@@ -16,7 +16,7 @@ def main():
     create_table()
 
     if choice == 'Today':
-        if st.button('View Word of today'):
+        if st.button('View News of today'):
             result = select_word()
             # st.write(result)
             value = result[0][0]
@@ -25,10 +25,10 @@ def main():
     elif choice == 'Create':
         st.markdown('#### Add Item')
 
-        word = st.text_area('good word')
-        if st.button('Add Word'):
+        word = st.text_area('news')
+        if st.button('Add News'):
             add_data(word)
-            st.success('Successfully Add Word:{}'.format(word))
+            st.success('Successfully Add News:{}'.format(word))
 
     elif choice == 'Read':
         st.markdown('#### View Items')
@@ -43,7 +43,7 @@ def main():
         st.download_button(
             label='CSVダウンロード',
             data=csv_df,
-            file_name='goodword_b.csv',
+            file_name='news.csv',
             mime='text/csv'
         )    
 
@@ -66,8 +66,8 @@ def main():
 
         if selected_result:
             word = selected_result[0][0] # [0]最初のindex　[0] value
-            new_word = st.text_area('good word', word)
-        if st.button('Update Word'):
+            new_word = st.text_area('news', word)
+        if st.button('Update News'):
             edit_word_data(new_word, word)
             st.success('Successfully Updated')
         
@@ -86,9 +86,9 @@ def main():
         list_of_word = [i[0] for i in view_unique_words()] # dict型から値のみ取り出す
         selected_word = st.selectbox('Word To Delete', list_of_word)
         st.warning('Do you want to delete : {}'.format(selected_word))
-        if st.button('Delete Word'):
+        if st.button('Delete News'):
             delete_data(selected_word)
-            st.success('Word has been Successfully Delete')
+            st.success('News has been Successfully Delete')
 
         new_result = view_all_data()
         df2 = pd.DataFrame(new_result, columns=['word'])
